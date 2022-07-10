@@ -27,6 +27,7 @@ function print3() {
     } catch (err) {
       console.log(err);
     }
+    // print4();
   });
 }
 
@@ -38,4 +39,10 @@ function print4() {
 print1();
 print2();
 print3();
+// zakomentarisati ovaj poziv
+// i staviti ga u callback readFile funkcije
 print4();
+
+// ako zelimo da popravimo ovo (da ide po redu),
+// moramo poziv print4() funkcije staviti unutar callback-a fs.readFile() funkcije
+// U tom slucaju, kada se callback izvrsi i istampa num3, poziv print4() ce se takodje uraditi
