@@ -101,3 +101,39 @@ calcSquare("a string", (err, result) => {
 
   console.log(result);
 });
+
+//==================================================================
+//==================================================================
+
+// Callback funkcije nisu citljive (callback hell)
+// Ovo su samo 2 poziva sa GET requestom, gde trazimo ceo niz rasa pasa, a onda saljemo zahtev za jednu sliku specificne rase
+// Samo da zamislimo 5, 10, ...
+
+const xhr = new XMLHttpRequest();
+
+xhr.open("GET", "https://dog.ceo/api/breeds/list/all");
+xhr.onreadystatechange = function () {
+  if (this.readyState === this.DONE) {
+    const res = JSON.parse(this.responseText);
+    const breeds = Object.keys(res.message);
+    const firstBreedOnList = breeds[0];
+
+    const xhrDogPic = new XMLHttpRequest();
+
+    xhrDogPic.open(
+      "GET",
+      `https://dog.ceo/api/breed/${firstBreedOnList}/images/random`
+    );
+    xhrDogPic.onreadystatechange = function () {
+      if (this.readyState == this.DONE) {
+        console.log(this.responseText);
+      }
+    };
+    xhrDogPic.send(null);
+  }
+};
+xhr.send(null);
+
+//==================================================================
+
+// callback hell sa ciltjivijim primerom
